@@ -1,0 +1,50 @@
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_iris
+
+# Question 1
+# Define two custom numpy arrays, say A and B. Generate two new numpy arrays by stacking A and B vertically and horizontally.
+A = np.array([[1, 2, 3], [4, 5, 6]])
+B = np.array([[7, 8, 9], [10, 11, 12]])
+stacked_vertically = np.vstack((A, B))
+stacked_horizontally = np.hstack((A, B))
+print("Stacked Vertically:\n", stacked_vertically)
+print("Stacked Horizontally:\n", stacked_horizontally)
+
+# Question 2
+# Find common elements between A and B. [Hint: Intersection of two sets]
+A = np.array([[1, 2, 3], [4, 5, 6]])
+B = np.array([[4, 5, 6], [7, 8, 9]])
+common_elements = np.intersect1d(A, B)
+print("Common Elements:\n", common_elements)
+
+# Question 3
+# Extract all numbers from A which are within a specific range. eg between 5 and 10. [Hint: np.where() might be useful or boolean masks]
+A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+numbers_in_range = A[(A >= 5) & (A <= 10)]
+print("Numbers between 5 and 10:\n", numbers_in_range)
+
+# Question 4
+# Filter the rows of iris_2d that has petallength (3rd column) > 1.5 and sepallength (1st column) < 5.0.
+iris = load_iris()
+iris_2d = iris.data[:, :3]
+filtered_rows = iris_2d[(iris_2d[:, 2] > 1.5) & (iris_2d[:, 0] < 5.0)]
+print("Filtered Rows:\n", filtered_rows)
+
+# Question 5
+# From df filter the 'Manufacturer', 'Model' and 'Type' for every 20th row starting from 1st (row 0).
+df = pd.read_csv('https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv')
+filtered_df = df.loc[::20, ['Manufacturer', 'Model', 'Type']]
+print(filtered_df)
+
+# Question 6
+# Replace missing values in Min.Price and Max.Price columns with their respective mean.
+df['Min.Price'].fillna(df['Min.Price'].mean(), inplace=True)
+df['Max.Price'].fillna(df['Max.Price'].mean(), inplace=True)
+print(df[['Min.Price', 'Max.Price']])
+
+# Question 7
+# How to get the rows of a dataframe with row sum > 100?
+df = pd.DataFrame(np.random.randint(10, 40, 60).reshape(-1, 4))
+rows_with_sum_gt_100 = df[df.sum(axis=1) > 100]
+print(rows_with_sum_gt_100)
